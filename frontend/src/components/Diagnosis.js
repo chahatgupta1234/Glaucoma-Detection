@@ -29,7 +29,7 @@ function Diagnosis() {
 
     try {
       const tokenResponse = await fetch('http://localhost:5000/api/token', {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         }

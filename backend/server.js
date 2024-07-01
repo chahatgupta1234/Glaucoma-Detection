@@ -1,21 +1,30 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-require('dotenv').config();  // Load .env file
+
+require('dotenv').config();
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 const API_KEY = process.env.IBM_API_KEY;
-const SCORING_URL = process.env.IBM_URL;
 
+const SCORING_URL = process.env.SCORE_URL;
 
-app.use(cors());
+app.use(cors(
+  {
+    origin: [""],
+    methods: ["POST", "GET"],
+    credentials: true
+  }
+));
 app.use(express.json());
 
 app.get('/api/token', async (req, res) => {
+  // console.log("ibm key" , API_KEY);
   try {
-    console.log("ibm key" , IBM_API_KEY);
+    
     const response = await axios.post('https://iam.cloud.ibm.com/identity/token', `grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=${API_KEY}`, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -23,7 +32,7 @@ app.get('/api/token', async (req, res) => {
       }
     });
 
-    console.log("response",response.data);  
+    // console.log("response agya",response.data);  
     res.json(response.data);
     
   } catch (error) {
