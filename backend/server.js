@@ -16,10 +16,12 @@ app.use(cors(
   {
     origin: ["https://glaucoma-detection-frontend.vercel.app/"],
     methods: ["POST", "GET"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   }
 ));
 app.use(express.json());
+app.options('*', cors());
 
 app.get('/api/token', async (req, res) => {
   // console.log("ibm key" , API_KEY);
@@ -27,6 +29,7 @@ app.get('/api/token', async (req, res) => {
     
     const response = await axios.post('https://iam.cloud.ibm.com/identity/token', `grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=${API_KEY}`, {
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json'
       }
