@@ -14,7 +14,7 @@ const SCORING_URL = process.env.SCORE_URL;
 
 app.use(cors(
   {
-    origin: [""],
+    origin: ["https://glaucoma-detection-frontend.vercel.app/"],
     methods: ["POST", "GET"],
     credentials: true
   }
