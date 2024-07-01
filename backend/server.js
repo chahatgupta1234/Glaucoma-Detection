@@ -58,7 +58,7 @@ app.post('/api/predict', async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
   res.send('Server is running');
   
 });
