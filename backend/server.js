@@ -9,11 +9,13 @@ const PORT = process.env.PORT || 5000;
 const API_KEY = process.env.IBM_API_KEY;
 const SCORING_URL = process.env.IBM_URL;
 
+
 app.use(cors());
 app.use(express.json());
 
-app.post('/api/token', async (req, res) => {
+app.get('/api/token', async (req, res) => {
   try {
+    console.log("ibm key" , IBM_API_KEY);
     const response = await axios.post('https://iam.cloud.ibm.com/identity/token', `grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=${API_KEY}`, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -21,7 +23,9 @@ app.post('/api/token', async (req, res) => {
       }
     });
 
+    console.log("response",response.data);  
     res.json(response.data);
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -43,6 +47,11 @@ app.post('/api/predict', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+app.get('/', (req, res) => {
+  res.send('Server is running');
+  
 });
 
 app.listen(PORT, () => {
