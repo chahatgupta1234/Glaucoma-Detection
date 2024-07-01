@@ -24,18 +24,18 @@ app.use(express.json());
 app.options('*', cors());
 
 app.get('/api/token', async (req, res) => {
-  // console.log("ibm key" , API_KEY);
+  console.log("ibm key" , API_KEY);
   try {
     
     const response = await axios.post('https://iam.cloud.ibm.com/identity/token', `grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=${API_KEY}`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
+        // 'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json'
       }
     });
 
-    // console.log("response agya",response.data);  
+    console.log("response agya",response.data);  
     res.json(response.data);
     
   } catch (error) {
